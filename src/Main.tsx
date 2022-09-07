@@ -10,6 +10,8 @@ import {
     View
 } from "react-native";
 
+import MemoMySvgComponent from "./svg/MySvg";
+
 type TaskType = {
     key: string
     title: string
@@ -58,7 +60,9 @@ export const Main = () => {
             <View style={[styles.item, {borderColor: item.isDone ? "green": "red", opacity:item.isDone ? 0.7: 1}]}>
                     <Text style={[styles.title, {textDecorationLine: item.isDone ? "line-through":"none"}]}>{item.title}</Text>
                     <Text>{item.isDone ? "✅😊" : "🤔"}</Text>
+                <MemoMySvgComponent/>
             </View>
+
         </TouchableWithoutFeedback>
     }
 
