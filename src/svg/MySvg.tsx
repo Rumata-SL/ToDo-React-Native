@@ -4,8 +4,8 @@ import { memo } from "react"
 
 const MySvgComponent = (props: SvgProps) => (
     <Svg
-        width={24}
-        height={24}
+        width={16}
+        height={16}
         viewBox="0 0 16 16"
         {...props}
     >
@@ -17,5 +17,5 @@ const MySvgComponent = (props: SvgProps) => (
     </Svg>
 )
 
- const MemoMySvgComponent = memo(MySvgComponent)
-export default MemoMySvgComponent
+export const MemoMySvgComponent = memo(MySvgComponent)
+// export default MemoMySvgComponent

@@ -10,7 +10,7 @@ import {
     View
 } from "react-native";
 
-import MemoMySvgComponent from "./svg/MySvg";
+import {MemoMySvgComponent} from "./svg/MySvg";
 
 type TaskType = {
     key: string
@@ -20,7 +20,7 @@ type TaskType = {
 // функция-генератор uuid
 const uuid = ()=> {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
@@ -58,8 +58,8 @@ export const Main = () => {
     const render: ListRenderItem<TaskType> = ({item}) => {
         return <TouchableWithoutFeedback onLongPress={() => removeTask(item.key)} onPress={()=>updateTask(item.key)}>
             <View style={[styles.item, {borderColor: item.isDone ? "green": "red", opacity:item.isDone ? 0.7: 1}]}>
-                    <Text style={[styles.title, {textDecorationLine: item.isDone ? "line-through":"none"}]}>{item.title}</Text>
                     <Text>{item.isDone ? "✅😊" : "🤔"}</Text>
+                    <Text style={[styles.title, {textDecorationLine: item.isDone ? "line-through":"none"}]}>{item.title}</Text>
                 <MemoMySvgComponent/>
             </View>
 
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         textAlignVertical:"center",
         color: "#000",
+        backgroundColor:"#fff",
         border:"solid",
         borderWidth:1,
         borderColor:"#000",
