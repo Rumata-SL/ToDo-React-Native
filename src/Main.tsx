@@ -7,7 +7,7 @@ import {
     TextInput,
     TouchableWithoutFeedback,
     TouchableOpacity,
-    View
+    View, ScrollView
 } from "react-native";
 
 import {MemoMySvgComponent} from "./svg/MySvg";
@@ -18,9 +18,9 @@ type TaskType = {
     isDone: boolean
 }
 // функция-генератор uuid
-const uuid = ()=> {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+const uuid = () => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+        let r = Math.random() * 16 | 0, v = c == "x" ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
@@ -52,14 +52,20 @@ export const Main = () => {
             title: "Накормить кошку",
             isDone: false
         },
-        ])
+    ])
     const [inputValue, setInputValue] = useState("")
 
     const render: ListRenderItem<TaskType> = ({item}) => {
-        return <TouchableWithoutFeedback onLongPress={() => removeTask(item.key)} onPress={()=>updateTask(item.key)}>
-            <View style={[styles.item, {borderColor: item.isDone ? "green": "red", opacity:item.isDone ? 0.7: 1}]}>
-                    <Text>{item.isDone ? "✅😊" : "🤔"}</Text>
-                    <Text style={[styles.title, {textDecorationLine: item.isDone ? "line-through":"none"}]}>{item.title}</Text>
+        return <TouchableWithoutFeedback
+            onLongPress={() => removeTask(item.key)}
+            onPress={() => updateTask(item.key)}>
+            <View style={[styles.item, {
+                borderColor: item.isDone ? "green" : "red",
+                opacity: item.isDone ? 0.7 : 1
+            }]}>
+                <Text>{item.isDone ? "✅😊" : "🤔"}</Text>
+                <Text
+                    style={[styles.title, {textDecorationLine: item.isDone ? "line-through" : "none"}]}>{item.title}</Text>
                 <MemoMySvgComponent/>
             </View>
 
@@ -80,16 +86,21 @@ export const Main = () => {
         setTasks(tasks.filter(i => i.key !== key))
     }
 
-    const updateTask = (key:string)=>{
-        setTasks(tasks.map(i=> i.key=== key? {...i, isDone: !i.isDone}: i))
+    const updateTask = (key: string) => {
+        setTasks(tasks.map(i => i.key === key ? {...i, isDone: !i.isDone} : i))
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titleHeader}>{`${"Список задач".toUpperCase()}`}</Text>
+            <Text
+                style={styles.titleHeader}>{`${"Список задач".toUpperCase()}`}</Text>
             <View style={styles.header}>
-                <TextInput value={inputValue} onChangeText={setInputValue}
-                           style={styles.input} placeholder="введите текст"/>
+                <ScrollView keyboardShouldPersistTaps={"never"}>
+                    <TextInput value={inputValue}
+                               onChangeText={setInputValue}
+                               style={styles.input}
+                               placeholder="введите текст"/>
+                </ScrollView>
                 <TouchableOpacity onPress={addTask}>
                     <Text style={styles.titleHeaderAdd}>ADD</Text>
                 </TouchableOpacity>
@@ -113,23 +124,23 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontStyle: "italic",
         color: "#000",
-        marginBottom:10,
+        marginBottom: 10,
     },
-    titleHeaderAdd:{
+    titleHeaderAdd: {
         width: 80,
         height: 40,
-        fontSize:20,
+        fontSize: 20,
         textAlign: "center",
-        textAlignVertical:"center",
+        textAlignVertical: "center",
         color: "#000",
-        backgroundColor:"#fff",
-        border:"solid",
-        borderWidth:1,
-        borderColor:"#000",
+        backgroundColor: "#fff",
+        border: "solid",
+        borderWidth: 1,
+        borderColor: "#000",
         borderRadius: 5,
     },
-    itemContainer:{
-        marginTop:15,
+    itemContainer: {
+        marginTop: 15,
     },
     item: {
         flexDirection: "row",
